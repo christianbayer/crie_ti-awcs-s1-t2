@@ -1,0 +1,20 @@
+{
+  "name": "ts-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "objects": "tsc && node ./dist/objects.js",
+    "persons": "tsc && node ./dist/persons.js",
+    "library": "tsc && node ./dist/library.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@types/prompt-sync": "^4.2.0",
+    "prompt-sync": "^4.2.0"
+  }
+}
