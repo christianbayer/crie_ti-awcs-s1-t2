@@ -7,6 +7,12 @@ export class Booking extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
+  @Column({ type: 'date' })
+  public start_date: string;
+
+  @Column({ type: 'date' })
+  public end_date: string;
+
   @Column({
     type: 'numeric',
     precision: 7,
@@ -14,11 +20,11 @@ export class Booking extends BaseEntity {
   })
   public amount: number;
 
-  @Column({ type: 'date' })
-  public start_date: string;
-
-  @Column({ type: 'date' })
-  public end_date: string;
+  @Column({
+    type: 'timestamp',
+    default: 'NOW()'
+  })
+  public booked_at: string;
 
   @Column()
   public room_id: number;

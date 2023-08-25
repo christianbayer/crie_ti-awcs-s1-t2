@@ -22,6 +22,11 @@ export class Room extends BaseEntity {
   })
   public price: number;
 
+  // @OneToMany(function () {
+  //   return Booking
+  // }, function (booking) {
+  //   return booking.room
+  // })
   @OneToMany(() => Booking, (booking) => booking.room)
   public bookings: Booking[];
 }
