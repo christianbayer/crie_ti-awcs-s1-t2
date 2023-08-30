@@ -5,45 +5,34 @@ const prompt = promptSync();
 
 export class CustomersController {
 
-  async list () {
-    let customers = await Customer.find();
-    console.table(customers);
+  async list (): Promise<Customer[]> {
+    return await Customer.find();
   }
 
-  async create () {
-    let name: string = prompt('Nome:');
-    let email: string = prompt('E-mail:');
-    let phone: string = prompt('Telefone:');
-    let document: string = prompt('Documento:');
-
-    let customer: Customer = await Customer.create({
+  async create (name: string, email: string, phone: string, document: string): Promise<Customer> {
+    return await Customer.create({
       name,
       email,
       phone,
       document,
     }).save();
-
-    console.log(`Cliente ID #${customer.id} criado com sucesso!`);
   }
 
-  async edit () {
-    let id: number = Number(prompt('Qual o ID?'));
-    let customer: Customer | null = await Customer.findOneBy({ id: id });
-    if (customer) {
-      customer.name = prompt(`Nome (${customer.name}):`);
-      customer.email = prompt(`E-mail (${customer.email}):`);
-      customer.phone = prompt(`Telefone (${customer.phone}):`);
-      customer.document = prompt(`Documento(${customer.document}):`);
-      customer.save();
-      console.log('Cliente atualizado com sucesso!');
-    }
+  async find (id: number): Promise<Customer|null> {
+    return await Customer.findOneBy({ id });
   }
 
-  async delete () {
-    let id: number = Number(prompt('Qual o ID?'));
-    let result = await Customer.delete({ id: id });
-    if (result.affected && result.affected > 0) {
-      console.log('Cliente deletado com sucesso!');
-    }
+  async edit (customer: Customer, name: string, email: string, phone: string, document: string): Promise<Customer> {
+    customer.name = name;
+    customer.email = email;
+    customer.phone = phone;
+    customer.document = document;
+    await customer.save();
+
+    return customer;
+  }
+
+  async delete (customer: Customer): Promise<void> {
+    await customer.remove();
   }
 }
