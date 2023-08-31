@@ -12,14 +12,14 @@ export class CustomersMenu {
     this.controller = new CustomersController();
   }
 
-  public show () {
+  public show (): void {
     console.log('1 - Listar clientes');
     console.log('2 - Cadastrar novo cliente');
     console.log('3 - Editar cliente');
     console.log('4 - Excluir cliente');
   }
 
-  public async execute (input: string) {
+  public async execute (input: string): Promise<void> {
     switch (input) {
       case '1':
         await this.list();

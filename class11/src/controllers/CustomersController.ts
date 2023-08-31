@@ -1,7 +1,4 @@
 import { Customer } from '../models/Customer';
-import promptSync from 'prompt-sync';
-
-const prompt = promptSync();
 
 export class CustomersController {
 

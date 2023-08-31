@@ -8,10 +8,10 @@ export class Booking extends BaseEntity {
   public id: number;
 
   @Column({ type: 'date' })
-  public start_date: string;
+  public start_date: Date;
 
   @Column({ type: 'date' })
-  public end_date: string;
+  public end_date: Date;
 
   @Column({
     type: 'numeric',
