@@ -19,5 +19,5 @@ export class Room extends BaseEntity {
   public price: number;
 
   @OneToMany(() => Booking, (booking) => booking.room)
-  public bookings: Booking[];
+  public bookings: Promise<Booking[]>;
 }

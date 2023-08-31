@@ -27,9 +27,9 @@ export class Booking extends BaseEntity {
 
   @ManyToOne(() => Customer, (customer) => customer.bookings)
   @JoinColumn({ name: 'customer_id' })
-  public customer: Customer;
+  public customer: Promise<Customer>;
 
   @ManyToOne(() => Room, (room) => room.bookings)
   @JoinColumn({ name: 'room_id' })
-  public room: Room;
+  public room: Promise<Room>;
 }

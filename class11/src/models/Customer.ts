@@ -22,5 +22,5 @@ export class Customer extends BaseEntity {
   public registered_at: Date;
 
   @OneToMany(() => Booking, (booking) => booking.customer)
-  public bookings: Booking[];
+  public bookings: Promise<Booking[]>;
 }
