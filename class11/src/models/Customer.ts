@@ -18,10 +18,7 @@ export class Customer extends BaseEntity {
   @Column()
   public email: string;
 
-  @Column({
-    type: 'timestamp',
-    default: 'NOW()'
-  })
+  @Column({ type: 'timestamp', default: 'NOW()' })
   public registered_at: Date;
 
   @OneToMany(() => Booking, (booking) => booking.customer)

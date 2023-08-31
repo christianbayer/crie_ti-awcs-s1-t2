@@ -1,7 +1,6 @@
 import { BookingsController } from '../controllers/BookingsController';
 import { Booking } from '../models/Booking';
 import promptSync from 'prompt-sync';
-import { Customer } from '../models/Customer';
 
 const prompt = promptSync();
 
@@ -28,11 +27,11 @@ export class BookingsMenu {
       case '10':
         await this.create();
         break;
-      // case '11':
-      //   await this.edit();
-      //   break;
-      // case '12':
-      //   await this.delete();
+      case '11':
+        await this.edit();
+        break;
+      case '12':
+        await this.delete();
         break;
     }
   }
@@ -43,43 +42,45 @@ export class BookingsMenu {
   }
 
   private async create (): Promise<void> {
-    let customerId: number = Number(prompt('Qual o ID do cliente? '));
-    let roomId: number = Number(prompt('Qual o ID do quarto? '));
+    let customerId: number = Number(prompt('Cliente ID: '));
+    let roomId: number = Number(prompt('Quarto ID: '));
     let startDate: string = prompt('Data de check-in: ');
     let endDate: string = prompt('Data de check-out: ');
-    // Formato de data: YYYY-MM-DD
-
     try {
       let booking: Booking = await this.controller.create(customerId, roomId, startDate, endDate);
-      console.log(`Reserva ID #${booking.id} criado com sucesso!`);
+      console.log(`Reserva ID #${booking.id} criada com sucesso!`);
     } catch (error: any) {
       console.log(error.message);
     }
   }
 
-  // private async edit (): Promise<void> {
-  //   let id: number = Number(prompt('Qual o ID? '));
-  //   let room: Room | null = await this.controller.find(id);
-  //   if (room) {
-  //     let number: string = prompt(`Número: (${room.number})`, room.number);
-  //     let type: string = prompt(`Tipo: (${room.type})`, room.type);
-  //     let capacity: number = Number(prompt(`Capacidade: (${room.capacity})`, String(room.capacity)));
-  //     let price: number = Number(prompt(`Preço: (${room.price})`, String(room.price)));
-  //     room = await this.controller.edit(room, number, type, capacity, price);
-  //     console.log(`Quarto ID #${room.id} atualizado com sucesso!`);
-  //   } else {
-  //     console.log('Quarto não encontrado!');
-  //   }
-  // }
+  private async edit (): Promise<void> {
+    let id: number = Number(prompt('Qual o ID? '));
+    let booking: Booking | null = await this.controller.find(id);
+    if (booking) {
+      let customerId: number = Number(prompt(`Cliente ID: (${booking.customer_id})`));
+      let roomId: number = Number(prompt(`Quarto ID: (${booking.room_id})`));
+      let startDate: string = prompt(`Data de check-in: (${booking.start_date})`);
+      let endDate: string = prompt(`Data de check-out: (${booking.end_date})`);
+      try {
+        booking = await this.controller.edit(booking, customerId, roomId, startDate, endDate);
+        console.log(`Reserva ID #${booking.id} atualizada com sucesso!`);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    } else {
+      console.log('Reserva não encontrada!');
+    }
+  }
 
-  // private async delete (): Promise<void> {
-  //   let id: number = Number(prompt('Qual o ID? '));
-  //   let room: Room | null = await this.controller.find(id);
-  //   if (room) {
-  //     await this.controller.delete(room);
-  //     console.log(`Quarto ID #${id} excluído com sucesso!`);
-  //   } else {
-  //     console.log('Quarto não encontrado!');
-  //   }
-  // }
+  private async delete (): Promise<void> {
+    let id: number = Number(prompt('Qual o ID? '));
+    let booking: Booking | null = await this.controller.find(id);
+    if (booking) {
+      await this.controller.delete(booking);
+      console.log(`Reserva ID #${id} excluída com sucesso!`);
+    } else {
+      console.log('Reserva não encontrada!');
+    }
+  }
 }

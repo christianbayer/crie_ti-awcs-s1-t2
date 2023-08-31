@@ -15,18 +15,9 @@ export class Room extends BaseEntity {
   @Column()
   public capacity: number;
 
-  @Column({
-    type: 'numeric',
-    precision: 7,
-    scale: 2
-  })
+  @Column({ type: 'numeric', precision: 7, scale: 2 })
   public price: number;
 
-  // @OneToMany(function () {
-  //   return Booking
-  // }, function (booking) {
-  //   return booking.room
-  // })
   @OneToMany(() => Booking, (booking) => booking.room)
   public bookings: Booking[];
 }

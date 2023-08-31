@@ -13,17 +13,10 @@ export class Booking extends BaseEntity {
   @Column({ type: 'date' })
   public end_date: Date;
 
-  @Column({
-    type: 'numeric',
-    precision: 7,
-    scale: 2
-  })
+  @Column({ type: 'numeric', precision: 7, scale: 2 })
   public amount: number;
 
-  @Column({
-    type: 'timestamp',
-    default: 'NOW()'
-  })
+  @Column({ type: 'timestamp', default: 'NOW()' })
   public booked_at: string;
 
   @Column()

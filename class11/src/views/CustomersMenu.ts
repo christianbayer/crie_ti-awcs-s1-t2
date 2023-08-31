@@ -46,9 +46,7 @@ export class CustomersMenu {
     let email: string = prompt('E-mail: ');
     let phone: string = prompt('Telefone: ');
     let document: string = prompt('Documento: ');
-
     let customer: Customer = await this.controller.create(name, email, phone, document);
-
     console.log(`Cliente ID #${customer.id} criado com sucesso!`);
   }
 
