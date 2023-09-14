@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .cell {
+      height: 200px;
+      width: 200px;
+      border: 2px solid #c1c1c1;
+      background-color: #f9f9f9;
+      margin-left: -2px;
+      box-sizing: border-box;
+    }
+
+    .score {
+      font-size: 20px;
+    }
+
+    .score:first-child {
+      margin-right: auto;
+    }
+
+    .highlight {
+      background-color: blue;
+    }
+
+    .highlight.error {
+      background-color: red;
+    }
+
+    .shake {
+      animation: shake 0.8s infinite;
+      transform: translate3d(0, 0, 0);
+    }
+
+    @keyframes shake {
+      0% {transform: translateX(0);}
+      10%, 30%, 50%, 70%, 90% {transform: translateX(-8px);}
+      20%, 40%, 60%, 80%,100% {transform: translateX(8px);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="score">
+        <span>Score: </span>
+        <span id="current-score">0</span>
+      </div>
+      <div class="score">
+        <span>High score: </span>
+        <span id="high-score">0</span>
+      </div>
+    </div>
+    <div class="row" id="cells">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+    </div>
+    <div class="row">
+      <button id="start">Start</button>
+    </div>
+  </div>
+  <script>
+    let startButton = document.getElementById('start');
+    let currentScoreSpan = document.getElementById('current-score');
+    let highScoreSpan = document.getElementById('high-score');
+    let cells = document.getElementsByClassName('cell');
+
+    let memory = [];
+    let userMemory = [];
+    let currentScore = 0;
+    let highScore = 0;
+
+    for (let cell of cells) {
+      cell.addEventListener('click', function (event) {
+        if (memory.length === 0) {
+          return;
+        }
+
+        let num = parseInt(event.target.dataset.index);
+        let i = userMemory.length;
+        userMemory.push(num);
+        if (memory[i] === userMemory[i]) {
+          highlight(0, num);
+
+          if (userMemory.length === memory.length) {
+            currentScore = i + 1;
+            currentScoreSpan.innerText = currentScore;
+            if (highScore < currentScore) {
+              highScore = currentScore;
+              highScoreSpan.innerText = highScore;
+            }
+            setTimeout(() => {
+              start();
+            }, 1000);
+          }
+        } else {
+          highlight(0, num, false);
+          restart();
+        }
+      });
+    }
+
+    startButton.addEventListener('click', function (event) {
+      start();
+    });
+
+    function restart () {
+      memory = [];
+      userMemory = [];
+      currentScore = 0;
+      currentScoreSpan.innerText = 0;
+      startButton.removeAttribute('disabled');
+      document.getElementById('cells').classList.add('shake');
+      this.setTimeout(function() {
+        document.getElementById('cells').classList.remove('shake');
+      }, 500);
+    }
+
+    function start () {
+      startButton.setAttribute('disabled', true);
+      userMemory = [];
+      memory.push(random(0, 4));
+
+      for (let i = 0; i < memory.length; i++) {
+        highlight(i, memory[i]);
+      }
+    }
+
+    function highlight (i, num, success = true) {
+      setTimeout(() => {
+        cells[num].classList.add('highlight');
+        if (! success) {
+          cells[num].classList.add('error');
+        }
+        setTimeout(() => {
+          cells[num].classList.remove('highlight', 'error');
+        }, 450);
+      }, i * 500);
+    }
+
+    function removeClasses () {
+      for (let cell of cells) {
+        cell.classList.remove('highlight');
+      }
+    }
+
+    function random (min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+  </script>
+</body>
+</html>
