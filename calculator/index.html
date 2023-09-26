@@ -12,38 +12,39 @@
 </head>
 <body>
   <div class="calculator">
-    <div class="display"></div>
+    <div class="display" id="display">0</div>
     <div class="panel">
       <div class="row">
-        <div class="action">AC</div>
-        <div class="action">+/-</div>
-        <div class="action">&percnt;</div>
-        <div class="operator">&divide;</div>
+        <div class="action" data-action="clear">AC</div>
+        <div class="action" data-action="change">+/-</div>
+        <div class="action" data-action="percentage">&percnt;</div>
+        <div class="operator" data-operator="/">&divide;</div>
       </div>
       <div class="row">
-        <div class="number">7</div>
-        <div class="number">8</div>
-        <div class="number">9</div>
-        <div class="operator">&times;</div>
+        <div class="number" data-number="7">7</div>
+        <div class="number" data-number="8">8</div>
+        <div class="number" data-number="9">9</div>
+        <div class="operator" data-operator="*">&times;</div>
       </div>
       <div class="row">
-        <div class="number">4</div>
-        <div class="number">5</div>
-        <div class="number">6</div>
-        <div class="operator">-</div>
+        <div class="number" data-number="4">4</div>
+        <div class="number" data-number="5">5</div>
+        <div class="number" data-number="6">6</div>
+        <div class="operator" data-operator="-">-</div>
       </div>
       <div class="row">
-        <div class="number">1</div>
-        <div class="number">2</div>
-        <div class="number">3</div>
-        <div class="operator">+</div>
+        <div class="number" data-number="1">1</div>
+        <div class="number" data-number="2">2</div>
+        <div class="number" data-number="3">3</div>
+        <div class="operator" data-operator="+">+</div>
       </div>
       <div class="row">
-        <div class="number zero">0</div>
-        <div class="number">.</div>
-        <div class="operator">=</div>
+        <div class="number zero" data-number="0">0</div>
+        <div class="number" data-number=".">.</div>
+        <div class="operator" data-operator="=">=</div>
       </div>
     </div>
   </div>
+  <script src="calculator.js"></script>
 </body>
 </html>
