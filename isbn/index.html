@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busca ISBN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <form>
+      <label for="isbn-input">ISBN:&nbsp;</label>
+      <input type="text" id="isbn-input" name="isbn">
+      <button id="search">Buscar</button>
+    </form>
+    <div id="details" class="details" style="display: none;">
+      <div class="cover"><img id="cover"></div>
+      <div class="items">
+        <div class="item"><strong>ISBN:</strong> <span id="isbn"></span></div>
+        <div class="item"><strong>Título:</strong> <span id="title"></span></div>
+        <div class="item"><strong>Subtítulo:</strong> <span id="subtitle"></span></div>
+        <div class="item"><strong>Sinopse:</strong> <span id="synopsis"></span></div>
+        <div class="item"><strong>Número de páginas:</strong> <span id="pages"></span></div>
+        <div class="item"><strong>Ano de publicação:</strong> <span id="year"></span></div>
+        <div class="item"><strong>Autor(es):</strong> <span id="authors"></span></div>
+        <div class="item"><strong>Editora:</strong> <span id="publisher"></span></div>
+      </div>
+    </div>
+    <script src="scripts.js"></script>
+  </div>
+</body>
+</html>
