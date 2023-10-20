@@ -16,8 +16,8 @@ server.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-server.use(basicAuth, usuariosRoutes);
 server.use(autenticacaoRoutes);
+server.use(basicAuth, usuariosRoutes);
 
 export default {
   start () {
